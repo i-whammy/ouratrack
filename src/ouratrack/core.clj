@@ -1,10 +1,9 @@
 (ns ouratrack.core
   (:require [clj-http.client :as http]
-            [environ.core :refer [env]]
-            [clojure.spec.alpha :as s]))
+            [clojure.spec.alpha :as s]
+            [ouratrack.config :as config]))
 
-(def ^:private token (env :token))
-(def ^:private headers {"Authorization" (str "Bearer " token)})
+(def ^:private headers {"Authorization" (str "Bearer " (config/token))})
 
 (defn- fetch-sleep-scores [start end]
   (:body (http/get
