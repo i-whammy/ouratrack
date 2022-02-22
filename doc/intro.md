@@ -1,3 +1,3 @@
 # Introduction to ouratrack
 
-TODO: write [great documentation](http://jacobian.org/writing/what-to-write/)
+https://cloud.ouraring.com/docs/
