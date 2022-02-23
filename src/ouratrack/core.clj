@@ -15,6 +15,14 @@
   (>= 0 (.compareTo (java.time.LocalDate/parse start)
                     (java.time.LocalDate/parse end))))
 
+(defn- get-duration-date [start end]
+  (+ 1 (.between java.time.temporal.ChronoUnit/DAYS
+                                     (java.time.LocalDate/parse start)
+                                     (java.time.LocalDate/parse end))))
+
+(defn fetch-average-readiness-score [start end]
+  )
+
 (s/fdef fetch-average-sleep-score
   :args (s/and (s/cat :start string? :end string?)
                (s/cat :start #(re-matches #"[0-9]{4}-[0-9]{2}-[0-9]{2}" %) :end #"[0-9]{4}-[0-9]{2}-[0-9]{2}")
@@ -24,7 +32,5 @@
   (let [total-sleep-score (->> (fetch-sleep-scores start end)
                                :sleep
                                (reduce (fn [acc sleep] (+ acc (:score sleep))) 0))
-        duration-date (+ 1 (.between java.time.temporal.ChronoUnit/DAYS
-                                     (java.time.LocalDate/parse start)
-                                     (java.time.LocalDate/parse end)))]
+        duration-date  (get-duration-date start end)]
     (quot total-sleep-score duration-date)))
